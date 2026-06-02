@@ -111,7 +111,7 @@ function AudienceColumn({
   href: string
 }) {
   const isClient = tone === 'client'
-  const band = isClient ? 'bg-mint-hero' : 'bg-supplier'
+  const band = isClient ? 'bg-mint-deep' : 'bg-supplier'
   const iconBox = isClient
     ? 'border-mint/30 bg-mint-wash text-mint-ink'
     : 'border-supplier/25 bg-supplier-wash text-supplier'
