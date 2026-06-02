@@ -16,7 +16,7 @@ export function ClosingCta() {
             exclusiva de proveedores validados.
           </p>
           <Link to="/cliente">
-            <Button variant="client" size="lg">
+            <Button variant="client" size="xl">
               Empezar gratis
             </Button>
           </Link>

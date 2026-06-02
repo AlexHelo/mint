@@ -4,7 +4,7 @@ import { ArrowRight } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'motion/react'
 import { Navbar } from '@/components/site/Navbar'
 import { Button } from '@/components/ui/Button'
-import papers from '@/assets/rfp-papers.avif'
+import { HeroPapers } from '@/components/landing/HeroPapers'
 
 /**
  * Stripe-style hero: a full-bleed green->navy gradient band with an angled
@@ -27,11 +27,12 @@ export function Hero() {
 
   return (
     <div className="relative">
-      {/* Gradient band, clipped to a diagonal bottom edge. Extends past the
-          content so the slanted cut reveals white underneath. */}
+      {/* Gradient fills the whole hero wrapper and grows with its content, so
+          the slanted cut always sits below the content (no spill on mobile).
+          Extra bottom padding gives the diagonal room to reveal white. */}
       <div
-        className="absolute inset-x-0 top-0 h-[660px] bg-mint-hero sm:h-[620px]"
-        style={{ clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)' }}
+        className="absolute inset-0 bg-mint-hero"
+        style={{ clipPath: 'polygon(0 0, 100% 0, 100% 92%, 0 100%)' }}
         aria-hidden
       >
         <div className="pointer-events-none absolute -left-32 -top-20 h-96 w-96 rounded-full bg-mint/25 blur-[130px]" />
@@ -40,8 +41,8 @@ export function Hero() {
       {/* Nav sits over the gradient */}
       <Navbar onDark />
 
-      {/* Hero content */}
-      <section className="container-content relative z-10 grid items-center gap-8 pb-28 pt-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6 lg:pb-36 lg:pt-16">
+      {/* Hero content. pb accounts for the diagonal reveal. */}
+      <section className="container-content relative z-10 grid items-center gap-8 pb-32 pt-10 sm:pb-40 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6 lg:pb-44 lg:pt-16">
         <motion.div {...rise} className="flex flex-col items-start gap-6">
           <p className="eyebrow text-mint-light">
             Plataforma de licitación B2B · México
@@ -75,11 +76,16 @@ export function Hero() {
               aria-label="Correo de tu empresa"
               className="min-w-0 flex-1 rounded-btn border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50 backdrop-blur-sm focus:border-white/60 focus:outline-none focus:ring-4 focus:ring-white/10"
             />
-            <Button type="submit" variant="client" size="lg" className="shrink-0">
+            <Button type="submit" variant="client" size="xl" className="shrink-0">
               Empezar gratis
               <ArrowRight weight="bold" size={18} />
             </Button>
           </form>
+
+          <p className="text-sm text-white/45">
+            Gratis para publicar. Sin tarjeta. Tu primera licitación en 10
+            minutos.
+          </p>
 
           <dl className="mt-2 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/10 pt-5">
             <Stat value="+1,000" label="proveedores validados" />
@@ -89,33 +95,7 @@ export function Hero() {
         </motion.div>
 
         {/* Papers illustration, bleeding toward the right edge */}
-        <motion.div
-          {...(reduce
-            ? {}
-            : {
-                initial: { opacity: 0, scale: 0.96 },
-                animate: { opacity: 1, scale: 1 },
-                transition: {
-                  duration: 0.8,
-                  delay: 0.15,
-                  ease: [0.16, 1, 0.3, 1] as const,
-                },
-              })}
-          className="relative hidden justify-center lg:flex"
-        >
-          <img
-            src={papers}
-            alt="Documentos de licitación elevándose"
-            className={
-              reduce
-                ? 'w-[340px] drop-shadow-2xl'
-                : 'w-[340px] animate-float drop-shadow-2xl'
-            }
-            width={480}
-            height={718}
-            loading="eager"
-          />
-        </motion.div>
+        <HeroPapers />
       </section>
     </div>
   )

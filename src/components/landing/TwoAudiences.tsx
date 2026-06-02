@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import {
+  ArrowRight,
   ChatCircleDots,
   ClipboardText,
   ListChecks,
@@ -53,13 +54,16 @@ const SUPPLIER_STEPS: Step[] = [
   },
 ]
 
-/** Two columns, mint world vs indigo world. The duality, literal. Light cards. */
+/**
+ * Two columns, mint world vs indigo world. Solid white cards with a colored
+ * header band and real shadows, on a canvas-soft section so they stand out.
+ */
 export function TwoAudiences() {
   return (
-    <section id="como-funciona" className="py-20 lg:py-28">
+    <section id="como-funciona" className="bg-canvas-soft py-20 lg:py-28">
       <div className="container-content">
         <Reveal className="mb-14 max-w-2xl">
-          <h2 className="headline text-[clamp(1.7rem,3.5vw,2.4rem)]">
+          <h2 className="headline text-[clamp(1.8rem,3.5vw,2.6rem)]">
             Dos lados, una plataforma.
           </h2>
           <p className="mt-4 text-lg text-ink-soft">
@@ -68,28 +72,22 @@ export function TwoAudiences() {
           </p>
         </Reveal>
 
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid items-start gap-6 lg:grid-cols-2">
           <AudienceColumn
             tone="client"
             label="Para clientes"
             heading="Empresas que licitan"
             steps={CLIENT_STEPS}
-            cta={
-              <Link to="/cliente">
-                <Button variant="client">Comenzar mi licitación gratis</Button>
-              </Link>
-            }
+            cta="Comenzar mi licitación gratis"
+            href="/cliente"
           />
           <AudienceColumn
             tone="supplier"
             label="Para proveedores"
             heading="Empresas que aplican"
             steps={SUPPLIER_STEPS}
-            cta={
-              <Link to="/proveedor">
-                <Button variant="supplier">Unirme como proveedor</Button>
-              </Link>
-            }
+            cta="Unirme como proveedor"
+            href="/proveedor"
           />
         </div>
       </div>
@@ -103,53 +101,71 @@ function AudienceColumn({
   heading,
   steps,
   cta,
+  href,
 }: {
   tone: 'client' | 'supplier'
   label: string
   heading: string
   steps: Step[]
-  cta: React.ReactNode
+  cta: string
+  href: string
 }) {
   const isClient = tone === 'client'
-  const accentText = isClient ? 'text-mint-ink' : 'text-supplier'
+  const band = isClient ? 'bg-mint-hero' : 'bg-supplier'
   const iconBox = isClient
     ? 'border-mint/30 bg-mint-wash text-mint-ink'
     : 'border-supplier/25 bg-supplier-wash text-supplier'
-  const surface = isClient
-    ? 'border-mint/25 bg-mint-wash/40'
-    : 'border-supplier/20 bg-supplier-wash/50'
 
   return (
     <Reveal
-      delay={isClient ? 0 : 0.1}
-      className={`flex flex-col gap-7 rounded-card border ${surface} p-8`}
+      delay={isClient ? 0 : 0.12}
+      className="group flex h-full flex-col overflow-hidden rounded-card border border-hairline bg-white shadow-card transition-shadow hover:shadow-lift"
     >
-      <div className="flex flex-col gap-1">
-        <span className={`eyebrow ${accentText}`}>{label}</span>
-        <h3 className="font-display text-xl font-semibold text-ink">
+      {/* Colored header band: the audience's world, unmistakable */}
+      <div className={`${band} px-8 pb-7 pt-8`}>
+        <span className="text-[0.72rem] font-semibold uppercase tracking-eyebrow text-white/70">
+          {label}
+        </span>
+        <h3 className="mt-1 font-display text-2xl font-bold tracking-headline text-white">
           {heading}
         </h3>
       </div>
 
-      <ul className="flex flex-col gap-5">
-        {steps.map((step) => (
-          <li key={step.title} className="flex items-start gap-3.5">
-            <span
-              className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${iconBox}`}
-            >
-              <step.icon size={18} weight="duotone" />
-            </span>
-            <div className="flex flex-col gap-0.5">
-              <p className="font-medium text-ink">{step.title}</p>
-              <p className="text-sm leading-relaxed text-ink-soft">
-                {step.desc}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div className="flex flex-1 flex-col gap-6 p-8">
+        <ul className="flex flex-col gap-5">
+          {steps.map((step, i) => (
+            <li key={step.title} className="flex items-start gap-4">
+              <span
+                className={`relative mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${iconBox}`}
+              >
+                <step.icon size={20} weight="duotone" />
+                <span
+                  className={`absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full text-[0.65rem] font-bold ${isClient ? 'bg-mint text-[#001F0F]' : 'bg-supplier text-white'}`}
+                >
+                  {i + 1}
+                </span>
+              </span>
+              <div className="flex flex-col gap-0.5">
+                <p className="font-semibold text-ink">{step.title}</p>
+                <p className="text-sm leading-relaxed text-ink-soft">
+                  {step.desc}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-      <div className="mt-auto">{cta}</div>
+        <Link to={href} className="mt-auto">
+          <Button
+            variant={isClient ? 'client' : 'supplier'}
+            size="lg"
+            className="w-full"
+          >
+            {cta}
+            <ArrowRight weight="bold" size={18} />
+          </Button>
+        </Link>
+      </div>
     </Reveal>
   )
 }
