@@ -2,15 +2,19 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'motion/react'
+import { MeshGradient } from '@paper-design/shaders-react'
 import { Navbar } from '@/components/site/Navbar'
 import { Button } from '@/components/ui/Button'
 import { HeroPapers } from '@/components/landing/HeroPapers'
 
 /**
- * Stripe-style hero: a full-bleed green->navy gradient band with an angled
- * diagonal bottom edge, the nav sitting transparent over it, an inline
- * email-capture CTA, and the RFP-papers illustration bleeding off the right.
- * White page picks up below the diagonal cut.
+ * Hero on a live animated mesh gradient (paper-design shaders), in Mint's
+ * palette: navy base woven with mint green and indigo. The mesh is the one
+ * place both worlds coexist (the landing serves both); strict green/blue
+ * duality resumes per-audience deeper in the app.
+ *
+ * Nav sits transparent over the mesh. Diagonal cut reveals the white page.
+ * Reduced-motion freezes the shader (speed 0).
  */
 export function Hero() {
   const reduce = useReducedMotion()
@@ -25,20 +29,37 @@ export function Hero() {
         transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
       }
 
+  // Mint palette mesh: navy base, mint green, deep green, indigo.
+  const meshColors = ['#0A1628', '#006644', '#00C07A', '#0F2040', '#2D4CC8']
+
   return (
     <div className="relative">
-      {/* Gradient fills the whole hero wrapper and grows with its content, so
-          the slanted cut always sits below the content (no spill on mobile).
-          Extra bottom padding gives the diagonal room to reveal white. */}
+      {/* Live mesh gradient, clipped to a diagonal bottom edge. */}
       <div
-        className="absolute inset-0 bg-mint-hero"
+        className="absolute inset-0 overflow-hidden bg-navy"
         style={{ clipPath: 'polygon(0 0, 100% 0, 100% 92%, 0 100%)' }}
         aria-hidden
       >
-        <div className="pointer-events-none absolute -left-32 -top-20 h-96 w-96 rounded-full bg-mint/25 blur-[130px]" />
+        <MeshGradient
+          className="absolute inset-0 h-full w-full"
+          colors={meshColors}
+          speed={reduce ? 0 : 0.3}
+          distortion={0.8}
+          swirl={0.6}
+        />
+        {/* second layer adds depth and the brighter accents */}
+        <MeshGradient
+          className="absolute inset-0 h-full w-full opacity-50"
+          colors={['#0A1628', '#00E090', '#0A1628', '#4A70E0']}
+          speed={reduce ? 0 : 0.2}
+          distortion={1}
+          swirl={0.3}
+        />
+        {/* darken the lower-left so the headline stays legible over the mesh */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-navy/85 via-navy/35 to-transparent" />
       </div>
 
-      {/* Nav sits over the gradient */}
+      {/* Nav sits over the mesh */}
       <Navbar onDark />
 
       {/* Hero content. pb accounts for the diagonal reveal. */}
@@ -53,13 +74,13 @@ export function Hero() {
             <span className="text-mint-light">licitación profesional</span>
           </h1>
 
-          <p className="max-w-md text-[1.05rem] leading-relaxed text-white/65">
+          <p className="max-w-md text-[1.05rem] leading-relaxed text-white/70">
             No te arriesgues con proveedores informales. Nuestra IA redacta tu
             RFP y lo publica en una red exclusiva de más de 1,000 proveedores
             validados, en menos de 10 minutos.
           </p>
 
-          {/* Inline email capture, Stripe-style */}
+          {/* Inline email capture */}
           <form
             onSubmit={(e) => {
               e.preventDefault()
@@ -74,7 +95,7 @@ export function Hero() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="tu@empresa.com"
               aria-label="Correo de tu empresa"
-              className="min-w-0 flex-1 rounded-btn border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50 backdrop-blur-sm focus:border-white/60 focus:outline-none focus:ring-4 focus:ring-white/10"
+              className="min-w-0 flex-1 rounded-btn border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50 backdrop-blur-md focus:border-white/60 focus:outline-none focus:ring-4 focus:ring-white/10"
             />
             <Button type="submit" variant="client" size="xl" className="shrink-0">
               Empezar gratis
@@ -82,12 +103,12 @@ export function Hero() {
             </Button>
           </form>
 
-          <p className="text-sm text-white/45">
+          <p className="text-sm text-white/50">
             Gratis para publicar. Sin tarjeta. Tu primera licitación en 10
             minutos.
           </p>
 
-          <dl className="mt-2 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/10 pt-5">
+          <dl className="mt-2 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/15 pt-5">
             <Stat value="+1,000" label="proveedores validados" />
             <Stat value="<10 min" label="para crear tu RFP" />
             <Stat value="100%" label="digital y gratis" />
@@ -107,7 +128,7 @@ function Stat({ value, label }: { value: string; label: string }) {
       <dt className="font-display text-xl font-bold tracking-headline text-mint-light">
         {value}
       </dt>
-      <dd className="text-sm text-white/50">{label}</dd>
+      <dd className="text-sm text-white/55">{label}</dd>
     </div>
   )
 }
