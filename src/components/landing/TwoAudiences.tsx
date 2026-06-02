@@ -56,7 +56,7 @@ const SUPPLIER_STEPS: Step[] = [
 /** Two columns, mint world vs indigo world. The duality, literal. Light cards. */
 export function TwoAudiences() {
   return (
-    <section className="py-20 lg:py-28">
+    <section id="como-funciona" className="py-20 lg:py-28">
       <div className="container-content">
         <Reveal className="mb-14 max-w-2xl">
           <h2 className="headline text-[clamp(1.7rem,3.5vw,2.4rem)]">
