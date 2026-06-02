@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   html {
@@ -14,26 +14,24 @@
   }
 
   body {
-    @apply bg-navy font-sans text-white antialiased;
-    font-weight: 300;
+    @apply bg-canvas font-sans text-ink antialiased;
   }
 
-  /* The whole product is dark. No section inverts (page theme lock). */
   ::selection {
-    background: rgba(0, 192, 122, 0.3);
+    background: rgba(0, 192, 122, 0.25);
   }
 }
 
 @layer components {
-  /* Eyebrow: uppercase, wide tracking, mint-light. Used sparingly. */
+  /* Eyebrow: uppercase, wide tracking. Used sparingly (max ~1 per 3 sections). */
   .eyebrow {
-    @apply font-sans text-[0.72rem] font-medium uppercase tracking-eyebrow text-mint-light;
+    @apply font-sans text-[0.72rem] font-semibold uppercase tracking-eyebrow text-mint-ink;
   }
 
-  /* Display headline rhythm from the design doc: tight negative tracking. */
+  /* Display headline: tight negative tracking, the brand signature. */
   .headline {
-    @apply font-display font-bold tracking-headline;
-    line-height: 1.13;
+    @apply font-display font-bold tracking-headline text-ink;
+    line-height: 1.1;
   }
 
   .container-content {

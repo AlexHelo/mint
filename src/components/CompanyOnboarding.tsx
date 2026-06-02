@@ -67,7 +67,7 @@ export function CompanyOnboarding({
 
       {!isClient && (
         <fieldset className="flex flex-col gap-2.5">
-          <legend className="mb-1 text-sm font-medium text-white/90">
+          <legend className="mb-1 text-sm font-medium text-ink">
             Especialidades tech
           </legend>
           <div className="flex flex-wrap gap-2">
@@ -82,8 +82,8 @@ export function CompanyOnboarding({
                   className={cn(
                     'rounded-full border px-3.5 py-1.5 text-sm transition-colors',
                     on
-                      ? 'border-supplier bg-supplier/20 text-supplier-light'
-                      : 'border-hairline text-muted hover:border-white/30 hover:text-white',
+                      ? 'border-supplier bg-supplier-wash text-supplier'
+                      : 'border-hairline text-ink-soft hover:border-ink-mute hover:text-ink',
                   )}
                 >
                   {s}

@@ -5,9 +5,8 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 
 /**
- * A single licitación, supplier-facing. This is a real product component,
- * reused as the hero visual (so the landing shows the actual product, not a
- * div mockup) and on the supplier dashboard. Supplier-world, so indigo accents.
+ * A single licitación, supplier-facing. Light card on white.
+ * Reused on the supplier dashboard. Supplier-world, so indigo accents.
  */
 export function RfpCard({
   rfp,
@@ -23,9 +22,8 @@ export function RfpCard({
   return (
     <article
       className={cn(
-        'flex flex-col gap-4 rounded-card border border-hairline bg-navy-card p-5 transition-colors',
-        !isStatic &&
-          'hover:border-supplier/40 hover:bg-supplier/[0.06]',
+        'flex flex-col gap-4 rounded-card border border-hairline bg-white p-5 shadow-card transition-all',
+        !isStatic && 'hover:-translate-y-0.5 hover:border-supplier/40 hover:shadow-lift',
         className,
       )}
     >
@@ -34,27 +32,27 @@ export function RfpCard({
           <Tag weight="fill" size={11} />
           {rfp.sector}
         </Badge>
-        <span className="shrink-0 text-xs text-faint">
+        <span className="shrink-0 text-xs text-ink-mute">
           Cierra {relativeDays(rfp.deadline)}
         </span>
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <h3 className="font-display text-[1.05rem] font-semibold leading-snug text-white">
+        <h3 className="font-display text-[1.05rem] font-semibold leading-snug text-ink">
           {rfp.title}
         </h3>
-        <p className="text-sm leading-relaxed text-muted line-clamp-2">
+        <p className="text-sm leading-relaxed text-ink-soft line-clamp-2">
           {rfp.scope}
         </p>
       </div>
 
       <div className="mt-auto flex items-center gap-5 border-t border-hairline pt-4 text-sm">
-        <span className="inline-flex items-center gap-1.5 text-white/80">
-          <CurrencyDollar size={16} className="text-supplier-light" />
+        <span className="inline-flex items-center gap-1.5 font-medium text-ink">
+          <CurrencyDollar size={16} className="text-supplier" />
           {formatMXN(rfp.budgetEstimate)}
         </span>
-        <span className="inline-flex items-center gap-1.5 text-white/60">
-          <CalendarBlank size={16} className="text-supplier-light" />
+        <span className="inline-flex items-center gap-1.5 text-ink-mute">
+          <CalendarBlank size={16} className="text-supplier" />
           {new Date(rfp.deadline).toLocaleDateString('es-MX', {
             day: 'numeric',
             month: 'short',

@@ -9,10 +9,10 @@ export function ClientRegister() {
         <div className="mx-auto max-w-lg">
           <div className="mb-8">
             <span className="eyebrow">Paso 2 de 3</span>
-            <h1 className="headline mt-2 text-[clamp(1.6rem,3.5vw,2.2rem)] text-white">
+            <h1 className="headline mt-2 text-[clamp(1.6rem,3.5vw,2.2rem)]">
               Registra tu empresa
             </h1>
-            <p className="mt-3 text-muted">
+            <p className="mt-3 text-ink-soft">
               Esta información queda vinculada a tu perfil. La usamos una sola
               vez.
             </p>

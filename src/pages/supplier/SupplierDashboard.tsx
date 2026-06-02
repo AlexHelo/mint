@@ -9,8 +9,7 @@ import type { Rfp } from '@/lib/types'
 
 /**
  * Supplier dashboard: licitaciones that match the supplier's profile.
- * (Matching is sector-overlap in v1, here we just show the open set.)
- * Applying opens a lightweight proposal panel; submit is mock.
+ * Applying opens a lightweight proposal panel; submit is mock. Light.
  */
 export function SupplierDashboard() {
   const [applyingTo, setApplyingTo] = useState<Rfp | null>(null)
@@ -31,14 +30,14 @@ export function SupplierDashboard() {
               <SealCheck weight="fill" size={12} />
               Proveedor validado
             </Badge>
-            <h1 className="headline text-[clamp(1.6rem,3.5vw,2.2rem)] text-white">
+            <h1 className="headline text-[clamp(1.6rem,3.5vw,2.2rem)]">
               Licitaciones para ti
             </h1>
-            <p className="text-muted">
+            <p className="text-ink-soft">
               Coinciden con tus especialidades. Aplica con tu propuesta.
             </p>
           </div>
-          <span className="text-sm text-faint">
+          <span className="text-sm text-ink-mute">
             {OPEN_RFPS.length} licitaciones abiertas
           </span>
         </div>
@@ -67,10 +66,10 @@ export function SupplierDashboard() {
 
 function AppliedCard({ rfp }: { rfp: Rfp }) {
   return (
-    <article className="flex flex-col items-center justify-center gap-3 rounded-card border border-supplier/30 bg-supplier/[0.08] p-5 text-center">
-      <CheckCircle weight="fill" size={32} className="text-supplier-light" />
-      <p className="font-medium text-white">Propuesta enviada</p>
-      <p className="text-sm text-muted">{rfp.title}</p>
+    <article className="flex flex-col items-center justify-center gap-3 rounded-card border border-supplier/30 bg-supplier-wash p-5 text-center">
+      <CheckCircle weight="fill" size={32} className="text-supplier" />
+      <p className="font-medium text-ink">Propuesta enviada</p>
+      <p className="text-sm text-ink-soft">{rfp.title}</p>
     </article>
   )
 }
@@ -86,17 +85,17 @@ function ApplyDialog({
 }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-4 backdrop-blur-sm sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-4 backdrop-blur-sm sm:items-center"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg rounded-card border border-hairline bg-navy-card p-6"
+        className="w-full max-w-lg rounded-card border border-hairline bg-white p-6 shadow-lift"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="font-display text-lg font-semibold text-white">
+        <h2 className="font-display text-lg font-semibold text-ink">
           Aplicar a la licitación
         </h2>
-        <p className="mt-1 text-sm text-muted">{rfp.title}</p>
+        <p className="mt-1 text-sm text-ink-soft">{rfp.title}</p>
 
         <form
           onSubmit={(e) => {
@@ -106,18 +105,16 @@ function ApplyDialog({
           className="mt-5 flex flex-col gap-4"
         >
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-white/90">
-              Tu propuesta
-            </label>
+            <label className="text-sm font-medium text-ink">Tu propuesta</label>
             <textarea
               required
               rows={4}
               placeholder="Cuéntale al cliente por qué eres el indicado y qué incluye tu propuesta."
-              className="w-full resize-none rounded-btn border border-hairline bg-navy-mid px-3.5 py-2.5 text-sm text-white placeholder:text-faint focus:border-supplier focus:outline-none"
+              className="w-full resize-none rounded-btn border border-hairline bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-mute/70 focus:border-supplier focus:outline-none focus:ring-4 focus:ring-supplier/20"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-white/90">
+            <label className="text-sm font-medium text-ink">
               Cotización (MXN)
             </label>
             <input
@@ -125,7 +122,7 @@ function ApplyDialog({
               type="number"
               min={0}
               placeholder="790000"
-              className="w-full rounded-btn border border-hairline bg-navy-mid px-3.5 py-2.5 text-sm text-white placeholder:text-faint focus:border-supplier focus:outline-none"
+              className="w-full rounded-btn border border-hairline bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-mute/70 focus:border-supplier focus:outline-none focus:ring-4 focus:ring-supplier/20"
             />
           </div>
           <div className="flex justify-end gap-2 pt-1">

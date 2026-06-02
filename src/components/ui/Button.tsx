@@ -3,25 +3,29 @@ import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
 /**
- * Button variants from the design doc. The duality is enforced here:
- * `client` is mint green, `supplier` is indigo. Pick by audience, never mix.
+ * Button variants. The duality is enforced here: `client` is mint green,
+ * `supplier` is indigo. Pick by audience, never mix.
+ * `ghost` is for light surfaces; `ghostDark` for the dark gradient hero card.
  */
 const button = cva(
   'inline-flex items-center justify-center gap-2 rounded-btn font-sans font-medium ' +
     'transition-all duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-navy',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
   {
     variants: {
       variant: {
         // Client / primary action. Dark green text on mint, per spec.
         client:
-          'bg-mint text-[#001F0F] hover:opacity-90 focus-visible:ring-mint',
+          'bg-mint text-[#001F0F] hover:bg-mint-light focus-visible:ring-mint-ink focus-visible:ring-offset-canvas',
         // Supplier action.
         supplier:
-          'bg-supplier-btn text-white hover:bg-supplier-btn-hover focus-visible:ring-supplier',
-        // Ghost / secondary on dark.
+          'bg-supplier text-white hover:bg-supplier-hover focus-visible:ring-supplier focus-visible:ring-offset-canvas',
+        // Ghost on a light surface.
         ghost:
-          'border border-hairline-strong bg-transparent text-white/70 hover:border-white/50 hover:text-white focus-visible:ring-white/40',
+          'border border-hairline bg-white text-ink-soft hover:border-ink-mute hover:text-ink focus-visible:ring-ink-mute focus-visible:ring-offset-canvas',
+        // Ghost on the dark gradient hero card.
+        ghostDark:
+          'border border-white/25 bg-transparent text-white/85 hover:border-white/60 hover:text-white focus-visible:ring-white/50 focus-visible:ring-offset-navy',
       },
       size: {
         md: 'px-[1.4rem] py-[0.7rem] text-[0.88rem]',

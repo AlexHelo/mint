@@ -50,7 +50,7 @@ Component → hook → service → Supabase is the target data path (services la
 
 ## Design
 
-Dark, editorial. Mint green is the client world, navy/indigo is the supplier world, and they never mix inside the same interactive component. Tokens live in `tailwind.config.ts`, straight from the Design System doc. Fonts: Sora (display) + DM Sans (body).
+Light, editorial. White canvas, navy ink, the green→navy gradient reserved for the hero card, closing CTA, and footer. Mint green is the client world, navy/indigo is the supplier world, and they never mix inside the same interactive component. On white, accents use the darker `mint-ink` / `supplier` so they stay legible; the lighter variants only appear on the dark gradient surfaces. The hero visual is the RFP-papers illustration (`src/assets/rfp-papers.avif`), which sits on the dark card because it's white-on-transparent. Tokens live in `tailwind.config.ts`, fonts are Sora (display) + DM Sans (body).
 
 ## Next
 

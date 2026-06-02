@@ -53,16 +53,16 @@ const SUPPLIER_STEPS: Step[] = [
   },
 ]
 
-/** Two columns, mint world vs indigo world, side by side. The duality, literal. */
+/** Two columns, mint world vs indigo world. The duality, literal. Light cards. */
 export function TwoAudiences() {
   return (
-    <section className="border-t border-hairline bg-navy py-20 lg:py-28">
+    <section className="py-20 lg:py-28">
       <div className="container-content">
         <Reveal className="mb-14 max-w-2xl">
-          <h2 className="headline text-[clamp(1.7rem,3.5vw,2.4rem)] text-white">
+          <h2 className="headline text-[clamp(1.7rem,3.5vw,2.4rem)]">
             Dos lados, una plataforma.
           </h2>
-          <p className="mt-4 text-lg text-muted">
+          <p className="mt-4 text-lg text-ink-soft">
             Verde para quien licita, azul para quien aplica. Cada quien ve solo
             lo suyo.
           </p>
@@ -111,13 +111,13 @@ function AudienceColumn({
   cta: React.ReactNode
 }) {
   const isClient = tone === 'client'
-  const accentText = isClient ? 'text-mint-light' : 'text-supplier-light'
-  const numberBg = isClient
-    ? 'border-mint/40 bg-mint/15 text-mint-light'
-    : 'border-supplier/40 bg-supplier/20 text-supplier-light'
+  const accentText = isClient ? 'text-mint-ink' : 'text-supplier'
+  const iconBox = isClient
+    ? 'border-mint/30 bg-mint-wash text-mint-ink'
+    : 'border-supplier/25 bg-supplier-wash text-supplier'
   const surface = isClient
-    ? 'border-mint/20 bg-gradient-to-b from-mint/[0.06] to-transparent'
-    : 'border-supplier/20 bg-gradient-to-b from-supplier/[0.08] to-transparent'
+    ? 'border-mint/25 bg-mint-wash/40'
+    : 'border-supplier/20 bg-supplier-wash/50'
 
   return (
     <Reveal
@@ -126,7 +126,7 @@ function AudienceColumn({
     >
       <div className="flex flex-col gap-1">
         <span className={`eyebrow ${accentText}`}>{label}</span>
-        <h3 className="font-display text-xl font-semibold text-white">
+        <h3 className="font-display text-xl font-semibold text-ink">
           {heading}
         </h3>
       </div>
@@ -135,13 +135,15 @@ function AudienceColumn({
         {steps.map((step) => (
           <li key={step.title} className="flex items-start gap-3.5">
             <span
-              className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${numberBg}`}
+              className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${iconBox}`}
             >
               <step.icon size={18} weight="duotone" />
             </span>
             <div className="flex flex-col gap-0.5">
-              <p className="font-medium text-white">{step.title}</p>
-              <p className="text-sm leading-relaxed text-muted">{step.desc}</p>
+              <p className="font-medium text-ink">{step.title}</p>
+              <p className="text-sm leading-relaxed text-ink-soft">
+                {step.desc}
+              </p>
             </div>
           </li>
         ))}

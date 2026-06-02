@@ -6,15 +6,13 @@ import { Button } from '@/components/ui/Button'
 /**
  * The RFP-builder chat. In production this streams from the `rfp-builder`
  * Edge Function (Claude Sonnet 4.6) and ends by calling the publishRfp tool.
- * Here it's a scripted mock so the flow is clickable: the agent asks a few
- * questions, then hands off to company onboarding.
+ * Here it's a scripted mock so the flow is clickable. Light surface.
  */
 interface Msg {
   from: 'agent' | 'user'
   text: string
 }
 
-// Scripted agent turns, in order. The last one triggers the handoff.
 const AGENT_SCRIPT = [
   'Hola, soy el asistente de Mint. Cuéntame qué proyecto de tecnología necesitas, como si me lo explicaras a un amigo.',
   'Perfecto. ¿Más o menos para cuántas personas o en qué parte de tu operación se usaría?',
@@ -33,7 +31,7 @@ export function RfpBuilderChat() {
   const [messages, setMessages] = useState<Msg[]>([
     { from: 'agent', text: AGENT_SCRIPT[0] },
   ])
-  const [turn, setTurn] = useState(0) // how many agent questions answered
+  const [turn, setTurn] = useState(0)
   const [input, setInput] = useState('')
   const [thinking, setThinking] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -62,10 +60,10 @@ export function RfpBuilderChat() {
   }
 
   return (
-    <div className="mx-auto flex h-[min(70vh,640px)] w-full max-w-2xl flex-col overflow-hidden rounded-card border border-hairline bg-navy-card">
+    <div className="mx-auto flex h-[min(70vh,640px)] w-full max-w-2xl flex-col overflow-hidden rounded-card border border-hairline bg-white shadow-card">
       <div className="flex items-center gap-2 border-b border-hairline px-5 py-3.5">
-        <Sparkle weight="fill" className="text-mint-light" size={18} />
-        <span className="font-display text-sm font-semibold text-white">
+        <Sparkle weight="fill" className="text-mint-ink" size={18} />
+        <span className="font-display text-sm font-semibold text-ink">
           Asistente de licitación
         </span>
       </div>
@@ -90,7 +88,7 @@ export function RfpBuilderChat() {
               <button
                 key={s}
                 onClick={() => send(s)}
-                className="rounded-full border border-hairline px-3 py-1.5 text-xs text-muted transition-colors hover:border-mint/40 hover:text-mint-light"
+                className="rounded-full border border-hairline px-3 py-1.5 text-xs text-ink-soft transition-colors hover:border-mint-ink hover:text-mint-ink"
               >
                 {s}
               </button>
@@ -121,7 +119,7 @@ export function RfpBuilderChat() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Escribe tu respuesta..."
-              className="flex-1 rounded-btn border border-hairline bg-navy-mid px-3.5 py-2.5 text-sm text-white placeholder:text-faint focus:border-mint focus:outline-none"
+              className="flex-1 rounded-btn border border-hairline bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-mute/70 focus:border-mint-ink focus:outline-none focus:ring-4 focus:ring-mint/20"
             />
             <Button
               type="submit"
@@ -151,7 +149,7 @@ function Bubble({
       <div
         className={
           isAgent
-            ? 'max-w-[85%] rounded-card rounded-tl-sm border border-hairline bg-navy-mid px-4 py-2.5 text-sm leading-relaxed text-white/90'
+            ? 'max-w-[85%] rounded-card rounded-tl-sm border border-hairline bg-canvas-soft px-4 py-2.5 text-sm leading-relaxed text-ink'
             : 'max-w-[85%] rounded-card rounded-tr-sm bg-mint px-4 py-2.5 text-sm leading-relaxed text-[#001F0F]'
         }
       >
@@ -163,6 +161,6 @@ function Bubble({
 
 function Dot() {
   return (
-    <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-white/50" />
+    <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-ink-mute/50" />
   )
 }

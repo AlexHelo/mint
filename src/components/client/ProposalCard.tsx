@@ -1,39 +1,38 @@
 import { useState } from 'react'
 import { Star } from '@phosphor-icons/react'
 import type { Proposal } from '@/lib/types'
-import { cn, formatMXN } from '@/lib/utils'
+import { formatMXN } from '@/lib/utils'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 
 /**
- * A supplier's proposal, client-facing. Client world, so mint accents on the
- * primary action even though the proposal is from a supplier. Local select
- * state stands in for the shortlist/accept mutation.
+ * A supplier's proposal, client-facing. Light card. Client world, so the
+ * primary action is mint. Local select state stands in for shortlist/accept.
  */
 export function ProposalCard({ proposal }: { proposal: Proposal }) {
   const [chosen, setChosen] = useState(proposal.status === 'shortlisted')
 
   return (
-    <article className="flex flex-col gap-4 rounded-card border border-hairline bg-navy-card p-5">
+    <article className="flex flex-col gap-4 rounded-card border border-hairline bg-white p-5 shadow-card">
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h3 className="font-display text-base font-semibold text-white">
+          <h3 className="font-display text-base font-semibold text-ink">
             {proposal.supplierName}
           </h3>
           <Badge tone="supplier">{proposal.specialty}</Badge>
         </div>
-        <span className="inline-flex items-center gap-1 text-sm text-white/80">
-          <Star weight="fill" size={15} className="text-mint-light" />
+        <span className="inline-flex items-center gap-1 text-sm font-medium text-ink">
+          <Star weight="fill" size={15} className="text-mint-ink" />
           {proposal.rating.toFixed(1)}
         </span>
       </div>
 
-      <p className="text-sm leading-relaxed text-muted">{proposal.message}</p>
+      <p className="text-sm leading-relaxed text-ink-soft">{proposal.message}</p>
 
       <div className="flex items-center justify-between border-t border-hairline pt-4">
         <div className="flex flex-col">
-          <span className="text-xs text-faint">Propuesta</span>
-          <span className="font-display text-lg font-semibold text-white">
+          <span className="text-xs text-ink-mute">Propuesta</span>
+          <span className="font-display text-lg font-semibold text-ink">
             {formatMXN(proposal.quote)}
           </span>
         </div>
@@ -41,7 +40,6 @@ export function ProposalCard({ proposal }: { proposal: Proposal }) {
           variant={chosen ? 'client' : 'ghost'}
           size="sm"
           onClick={() => setChosen((c) => !c)}
-          className={cn(chosen && 'pointer-events-auto')}
         >
           {chosen ? 'Seleccionado' : 'Elegir proveedor'}
         </Button>
