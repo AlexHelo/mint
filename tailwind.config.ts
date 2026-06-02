@@ -47,42 +47,43 @@ export default {
         display: ['Sora', 'system-ui', 'sans-serif'],
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
       },
+      // Sharper radii. Finance reads precise, not soft.
       borderRadius: {
-        btn: '10px',
-        card: '12px',
-        hero: '24px',
+        btn: '6px',
+        card: '8px',
+        hero: '12px',
       },
       maxWidth: {
         content: '1200px',
       },
       backgroundImage: {
-        // Signature hero gradient: dark green (left) to navy (right).
+        // Hero gradient: green -> teal -> navy. Controlled, directional, not artsy.
         'mint-hero':
-          'linear-gradient(125deg, #004d30 0%, #006644 28%, #003a22 48%, #0a1628 58%, #0f2040 100%)',
+          'linear-gradient(135deg, #00875A 0%, #006644 22%, #0A1628 60%, #0F2040 100%)',
+        // Fine grid texture for the hero (structure, not noise).
+        grid: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
+      },
+      backgroundSize: {
+        grid: '48px 48px',
       },
       letterSpacing: {
         headline: '-0.03em',
-        eyebrow: '0.1em',
+        eyebrow: '0.12em',
       },
       boxShadow: {
-        // Tinted to the brand navy, never pure black (taste rule).
-        card: '0 1px 3px rgba(10,22,40,0.06), 0 1px 2px rgba(10,22,40,0.04)',
-        lift: '0 12px 32px rgba(10,22,40,0.10), 0 4px 8px rgba(10,22,40,0.05)',
-        hero: '0 30px 60px rgba(0,77,48,0.25)',
+        // Tinted to the brand navy, never pure black. Crisp, not fluffy.
+        card: '0 1px 2px rgba(10,22,40,0.06), 0 1px 1px rgba(10,22,40,0.04)',
+        lift: '0 10px 28px rgba(10,22,40,0.10), 0 2px 6px rgba(10,22,40,0.05)',
+        panel: '0 24px 60px rgba(10,22,40,0.28)',
       },
       keyframes: {
         'fade-up': {
           from: { opacity: '0', transform: 'translateY(16px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
       },
       animation: {
         'fade-up': 'fade-up 0.6s cubic-bezier(0.16,1,0.3,1) both',
-        float: 'float 7s ease-in-out infinite',
       },
     },
   },
