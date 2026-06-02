@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-navy font-sans text-white antialiased;
+    font-weight: 300;
+  }
+
+  /* The whole product is dark. No section inverts (page theme lock). */
+  ::selection {
+    background: rgba(0, 192, 122, 0.3);
+  }
+}
+
+@layer components {
+  /* Eyebrow: uppercase, wide tracking, mint-light. Used sparingly. */
+  .eyebrow {
+    @apply font-sans text-[0.72rem] font-medium uppercase tracking-eyebrow text-mint-light;
+  }
+
+  /* Display headline rhythm from the design doc: tight negative tracking. */
+  .headline {
+    @apply font-display font-bold tracking-headline;
+    line-height: 1.13;
+  }
+
+  .container-content {
+    @apply mx-auto w-full max-w-content px-5 lg:px-10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
