@@ -42,9 +42,9 @@ export function Hero() {
           </h1>
 
           <p className="max-w-md text-[1.05rem] leading-relaxed text-white/70">
-            Describe tu proyecto y recibe propuestas comparables de proveedores
-            verificados. Compara precio, experiencia y reputación en un solo
-            lugar, y decide con datos.
+            Describe tu proyecto y nuestra IA arma la licitación. Recíbela ante
+            más de 1,000 proveedores verificados y compara precio, experiencia y
+            reputación en un solo lugar.
           </p>
 
           <form

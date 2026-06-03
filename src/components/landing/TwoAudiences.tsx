@@ -64,11 +64,11 @@ export function TwoAudiences() {
       <div className="container-content">
         <Reveal className="mb-14 max-w-2xl">
           <h2 className="headline text-[clamp(1.8rem,3.5vw,2.6rem)]">
-            Dos lados, una plataforma.
+            Un solo lugar, los dos lados.
           </h2>
           <p className="mt-4 text-lg text-ink-soft">
-            Verde para quien licita, azul para quien aplica. Cada quien ve solo
-            lo suyo.
+            Si tienes un proyecto, la IA lo convierte en una licitación. Si das
+            servicios tech, te llegan las que coinciden con tu perfil.
           </p>
         </Reveal>
 

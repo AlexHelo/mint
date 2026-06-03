@@ -31,8 +31,8 @@ export function ClosingCta() {
           </h2>
 
           <p className="max-w-lg text-lg text-white/70">
-            Publica tu proyecto gratis y recibe propuestas comparables de
-            proveedores verificados. Decide con datos, no con referencias.
+            La IA arma tu licitación y la publica ante más de 1,000 proveedores
+            verificados. Decide con datos, no con referencias.
           </p>
 
           <div className="flex flex-col items-center gap-4 sm:flex-row">
