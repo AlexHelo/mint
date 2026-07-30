@@ -1,32 +1,48 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { useEffect } from 'react'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { Shell } from '@/components/os/Shell'
+import { TendersProvider } from '@/lib/store'
 import { Landing } from '@/pages/Landing'
-import { ClientStart } from '@/pages/client/ClientStart'
-import { ClientRegister } from '@/pages/client/ClientRegister'
-import { ClientDashboard } from '@/pages/client/ClientDashboard'
-import { SupplierRegister } from '@/pages/supplier/SupplierRegister'
-import { SupplierDashboard } from '@/pages/supplier/SupplierDashboard'
+import { Apply } from '@/pages/os/Apply'
+import { Dashboard } from '@/pages/os/Dashboard'
+import { NotFound } from '@/pages/os/NotFound'
+import { Portal } from '@/pages/os/Portal'
+import { TenderBuilder } from '@/pages/os/TenderBuilder'
+import { TenderDetail } from '@/pages/os/TenderDetail'
+
+/** react-router keeps scroll across navigations; the landing is long. */
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    // braced body on purpose: Arc patches scrollTo to return a value, and
+    // React would treat that return as an effect cleanup and crash
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
 
 /**
- * Routes mirror the two flows in the product doc.
- * Client:   /cliente (chat) -> /cliente/registro -> /cliente/panel
- * Supplier: /proveedor (onboarding) -> /proveedor/panel
- * Auth gating lands once Supabase Auth is wired (System Design phase 1).
+ * `/` is the marketing landing; the OS lives under the Shell:
+ * /app (dashboard), /tenders/* (client side), /suppliers/* (provider side).
  */
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-
-        <Route path="/cliente" element={<ClientStart />} />
-        <Route path="/cliente/registro" element={<ClientRegister />} />
-        <Route path="/cliente/panel" element={<ClientDashboard />} />
-
-        <Route path="/proveedor" element={<SupplierRegister />} />
-        <Route path="/proveedor/panel" element={<SupplierDashboard />} />
-
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <ScrollToTop />
+      <TendersProvider>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route element={<Shell />}>
+            <Route path="/app" element={<Dashboard />} />
+            <Route path="/tenders/new" element={<TenderBuilder />} />
+            <Route path="/tenders/:id" element={<TenderDetail />} />
+            <Route path="/tenders/:id/edit" element={<TenderBuilder />} />
+            <Route path="/suppliers" element={<Portal />} />
+            <Route path="/suppliers/:id" element={<Apply />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </TendersProvider>
     </BrowserRouter>
   )
 }

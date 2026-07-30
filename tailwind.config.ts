@@ -35,7 +35,7 @@ export default {
         },
         // Light surfaces and ink.
         canvas: '#FFFFFF',
-        'canvas-soft': '#F6F9F8', // barely-tinted cool off-white for alt sections
+        'canvas-soft': '#F7F9FB', // section gray (docs/landing-brief.md)
         ink: {
           DEFAULT: '#0A1628', // primary text, the navy, never pure black
           soft: '#3D4A5C', // secondary text
@@ -47,27 +47,17 @@ export default {
         display: ['Sora', 'system-ui', 'sans-serif'],
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
       },
-      // Sharper radii. Finance reads precise, not soft.
+      // Brand posture (docs/marca.md): 10px cards, 8px buttons, 999px chips only.
       borderRadius: {
-        btn: '6px',
-        card: '8px',
-        hero: '12px',
+        btn: '8px',
+        card: '10px',
+        hero: '16px',
       },
       maxWidth: {
         content: '1200px',
       },
-      backgroundImage: {
-        // Hero gradient: green -> teal -> navy. Controlled, directional, not artsy.
-        'mint-hero':
-          'linear-gradient(135deg, #00875A 0%, #006644 22%, #0A1628 60%, #0F2040 100%)',
-        // Fine grid texture for the hero (structure, not noise).
-        grid: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-      },
-      backgroundSize: {
-        grid: '48px 48px',
-      },
       letterSpacing: {
-        headline: '-0.03em',
+        headline: '-0.02em',
         eyebrow: '0.12em',
       },
       boxShadow: {
