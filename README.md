@@ -12,8 +12,7 @@ Mockup clickeable de alta fidelidad, funcional de punta a punta sobre datos demo
 
 Todo el pensamiento del producto vive en `docs/`:
 
-- [`docs/resumen-para-mike.md`](docs/resumen-para-mike.md) - las decisiones en 12 bullets, empieza aquí
-- [`docs/estrategia-mexico.md`](docs/estrategia-mexico.md) - wedge, confianza, monetización, plan 90 días
+- [`docs/estrategia-mexico.md`](docs/estrategia-mexico.md) - wedge, confianza, monetización, plan 90 días, empieza aquí
 - [`docs/producto-roadmap.md`](docs/producto-roadmap.md) - P0/P1/P2 con implementación concreta y esquema de datos
 - [`docs/marca.md`](docs/marca.md) - personalidad, voz es-MX, el sello de folio, el gradiente del trato
 - [`docs/landing-brief.md`](docs/landing-brief.md) - el brief con el que se construyó la landing
