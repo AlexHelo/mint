@@ -1,60 +1,68 @@
 # Mint
 
-B2B tech bidding platform for Mexico. Companies post technology projects (RFPs / *licitaciones*), validated suppliers apply, the company picks one. A conversational AI turns "describe your project" into a structured RFP.
+Licitaciones B2B en orden, hechas en México. Una empresa describe lo que necesita comprar, el Asistente Mint lo convierte en una licitación formal de 11 secciones, sus proveedores aplican con un link y todas las propuestas caen en un tablero comparable.
 
-Product and architecture docs live in the Agentic-Docs repo under `Mint/`. This README is the codebase entry point.
+Dos caras, dos colores: verde mint para las empresas que licitan, índigo para los proveedores. Solo se juntan cuando hay trato cerrado (el gradiente en una propuesta aceptada).
 
-## Stack
+## Estado actual
 
-React 18 + Vite 5 + TypeScript, Tailwind 3, React Router. Phosphor icons, Motion for reveals. Supabase client is wired and ready (auth + tables land next). Per the team playbook: Supabase for data/auth/storage, Railway for hosting, Claude for the agent.
+Mockup clickeable de alta fidelidad, funcional de punta a punta sobre datos demo en MXN (localStorage, sin backend todavía): crear licitación con el asistente, publicar, aplicar como proveedor y mover propuestas en el kanban. El asistente hoy es un guion de 10 preguntas; el real usará el API de Claude (ver roadmap).
 
-## Run it
+## Los docs que importan
+
+Todo el pensamiento del producto vive en `docs/`:
+
+- [`docs/resumen-para-mike.md`](docs/resumen-para-mike.md) - las decisiones en 12 bullets, empieza aquí
+- [`docs/estrategia-mexico.md`](docs/estrategia-mexico.md) - wedge, confianza, monetización, plan 90 días
+- [`docs/producto-roadmap.md`](docs/producto-roadmap.md) - P0/P1/P2 con implementación concreta y esquema de datos
+- [`docs/marca.md`](docs/marca.md) - personalidad, voz es-MX, el sello de folio, el gradiente del trato
+- [`docs/landing-brief.md`](docs/landing-brief.md) - el brief con el que se construyó la landing
+
+## Correrlo
 
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm run build    # type-check + production build
+npm run build    # type-check + build de producción
 ```
 
-The app runs on **mock data** out of the box (see `src/data/mock.ts`). To connect Supabase, copy `.env.example` to `.env.local` and fill in the keys.
+Corre sobre datos demo sin configurar nada. Para conectar Supabase (fase siguiente): copiar `.env.example` a `.env.local`.
 
-## What's built (this pass)
-
-UI + routing for the two marketplace flows, on mock data. No auth yet.
+## Rutas
 
 ```
-/                  landing (hero, two-audience split, closing CTA)
-/cliente           RFP-builder chat (scripted mock of the Claude agent)
-/cliente/registro  company onboarding
-/cliente/panel     client dashboard: my RFP + interested suppliers
-/proveedor         supplier onboarding (company + specialties)
-/proveedor/panel   supplier dashboard: matched RFPs + apply flow
+/                landing
+/app             dashboard de licitaciones (lado empresa)
+/tenders/new     crear licitación con el Asistente Mint
+/tenders/:id     detalle: kanban de propuestas + documento
+/suppliers       portal de proveedores (licitaciones abiertas)
+/suppliers/:id   leer el documento y enviar propuesta
 ```
 
-## Structure
+## Estructura
 
 ```
 src/
-├── pages/            route-level screens (client/, supplier/)
+├── pages/
+│   ├── Landing.tsx   landing de marketing
+│   └── os/           Dashboard, TenderBuilder, TenderDetail, Portal, Apply
 ├── components/
-│   ├── ui/           Button, Badge, Field (Mint-themed primitives)
-│   ├── site/         Navbar, Footer, Logo, AppShell
-│   ├── landing/      Hero, TwoAudiences, ClosingCta, Reveal
-│   ├── client/       RfpBuilderChat, ProposalCard
-│   └── RfpCard.tsx   shared: hero visual + supplier dashboard
-├── lib/              utils (cn, formatMXN), types, supabase client
-└── data/             mock fixtures
+│   ├── brand/        Folio (el sello de folio, SVG)
+│   ├── os/           Shell (sidebar navy)
+│   ├── landing/      Reveal
+│   └── ui/           Button, Badge, Field
+└── lib/              tenders (modelo + seeds), store (estado + localStorage), supabase, utils
 ```
 
-Component → hook → service → Supabase is the target data path (services layer lands with auth). For now pages read from `src/data`.
+Stack: React 18 + Vite + TypeScript, Tailwind, React Router, Phosphor. Tokens del sistema en `tailwind.config.ts` (navy #0A1628, mint #00C07A, índigo #2D4CC8, Sora + DM Sans). El store de localStorage se reemplaza por Supabase manteniendo la misma interfaz.
 
-## Design
+## Siguiente (P0 del roadmap)
 
-Light, editorial. White canvas, navy ink, the green→navy gradient reserved for the hero card, closing CTA, and footer. Mint green is the client world, navy/indigo is the supplier world, and they never mix inside the same interactive component. On white, accents use the darker `mint-ink` / `supplier` so they stay legible; the lighter variants only appear on the dark gradient surfaces. The hero visual is the RFP-papers illustration (`src/assets/rfp-papers.avif`), which sits on the dark card because it's white-on-transparent. Tokens live in `tailwind.config.ts`, fonts are Sora (display) + DM Sans (body).
+1. Supabase: auth con magic link, organizaciones multi-tenant con RLS, migrar el store
+2. Asistente real con el API de Claude (tool use que llena las 11 secciones)
+3. Invitaciones a proveedores por correo/link y notificaciones (Resend)
+4. Export a PDF del documento y cierre automático por fecha
 
-## Next
+## Pendientes antes de cualquier deploy
 
-1. Supabase Auth + `companies`/`profiles` tables with RLS for marketplace visibility
-2. Services layer, swap mock data for real queries
-3. The `rfp-builder` Edge Function (Claude Sonnet 4.6) behind the chat
-4. Deploy to Railway
+El footer de la landing trae `[Razón social pendiente]` y `[correo pendiente]` a propósito: faltan los datos legales reales. Aviso de privacidad y términos también están marcados "en camino".
