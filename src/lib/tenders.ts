@@ -65,8 +65,8 @@ export interface Tender {
 
 /**
  * The assistant's script: 10 questions, each filling one field verbatim.
- * ponytail: verbatim fill is a prototype limitation; the real assistant
- * (Claude API, docs/producto-roadmap.md P0) reformulates into formal prose.
+ * Verbatim fill is a prototype limitation; the real assistant (Claude API,
+ * docs/producto-roadmap.md P0) reformulates into formal prose.
  */
 export const QUESTIONS: { question: string; target: SectionKey | 'deadline' }[] = [
   { question: 'Hola, soy el Asistente Mint. Te hago las preguntas correctas y convierto tus respuestas en una licitación completa. Para empezar: ¿cuál es el nombre del proyecto?', target: 'titulo' },

@@ -17,7 +17,7 @@ const NAV = [
 export function Shell() {
   return (
     <div className="flex min-h-screen bg-canvas-soft">
-      {/* ponytail: sidebar hides under lg; a real mobile nav is P1 */}
+      {/* sidebar hides under lg; a real mobile nav is P1 */}
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-navy text-white lg:flex">
         <div className="border-b border-white/10 px-5 py-5">
           <Logo onDark />
